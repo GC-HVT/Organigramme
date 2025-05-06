@@ -32,6 +32,14 @@ function initialiserMembresDraggables(membres) {
         membreDiv.addEventListener("dragover", allowDrop);
         membreDiv.addEventListener("drop", (event) => dropSurMembre(event, membre.userId)); // Déposer sur un membre
         zoneDepot.appendChild(membreDiv);
+
+        if (membre.displayName === "BAC Mathieu") {
+            structureOrganigramme[membre.userId] = null; // Mathieu BAC est le chef
+            membreDiv.draggable = false; // Empêcher de le déplacer
+            membreDiv.removeEventListener("dragstart", drag); // Supprimer l'écouteur dragstart
+            membreDiv.removeEventListener("dragover", allowDrop);
+            membreDiv.removeEventListener("drop", (event) => dropSurMembre(event, membre.userId));
+        }
     });
 
     const afficherBtn = document.createElement("button");
