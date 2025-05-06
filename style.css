@@ -1,0 +1,97 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#groupSelect {
+    margin-bottom: 20px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#zoneDepotOrganigramme {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px dashed #999;
+    border-radius: 4px;
+    justify-content: center;
+}
+
+.membre-draggable {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: grab;
+    text-align: center;
+}
+
+.membre-draggable:hover {
+    background-color: #e0e0e0;
+}
+
+.zone-depot {
+    border: 1px solid #bbb;
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    min-width: 150px;
+}
+
+.zone-depot.drag-over {
+    background-color: #d0d0d0;
+    border-color: #999;
+}
+
+.zone-depot-subordonne {
+    border: 1px dashed #bbb;
+    background-color: #f9f9f9;
+    padding: 8px;
+    border-radius: 4px;
+    text-align: center;
+    min-width: 180px;
+    font-size: 0.9em;
+    color: #777;
+}
+
+#organigrammeVisuel {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    width: 80%;
+    overflow-x: auto; /* Pour gérer les organigrammes larges */
+}
+
+/* Styles de base pour OrgChart.js (peuvent être surchargés) */
+.orgchart {
+    background: #fff;
+}
+
+.orgchart td {
+    text-align: center;
+    vertical-align: top;
+    padding: 10px;
+}
+
+.orgchart .node {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 4px;
+    min-width: 150px;
+    display: inline-block;
+}
+
+.orgchart .node span {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
