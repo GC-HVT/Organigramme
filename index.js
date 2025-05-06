@@ -19,7 +19,7 @@ function initialiserMembresDraggables(membres) {
     chefDiv.className = "zone-depot";
     chefDiv.textContent = "Déposer le chef de groupe ici";
     chefDiv.addEventListener("dragover", allowDrop);
-    chefDiv.addEventListener("drop", (event) => drop(event, null));
+    chefDiv.addEventListener("drop", (event) => dropSurZoneChef(event));
     zoneDepot.appendChild(chefDiv);
 
     membres.forEach(membre => {
@@ -29,16 +29,9 @@ function initialiserMembresDraggables(membres) {
         membreDiv.dataset.userId = membre.userId;
         membreDiv.draggable = true;
         membreDiv.addEventListener("dragstart", drag);
-
-        const depotSubordonne = document.createElement("div");
-        depotSubordonne.className = "zone-depot-subordonne";
-        depotSubordonne.dataset.parentId = membre.userId;
-        depotSubordonne.textContent = `Déposer un subordonné pour ${membre.displayName}`;
-        depotSubordonne.addEventListener("dragover", allowDrop);
-        depotSubordonne.addEventListener("drop", dropSubordonne);
-
+        membreDiv.addEventListener("dragover", allowDrop);
+        membreDiv.addEventListener("drop", (event) => dropSurMembre(event, membre.userId)); // Déposer sur un membre
         zoneDepot.appendChild(membreDiv);
-        zoneDepot.appendChild(depotSubordonne);
     });
 
     const afficherBtn = document.createElement("button");
@@ -55,19 +48,20 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
-function drop(event, parentId) {
+function dropSurZoneChef(event) {
     event.preventDefault();
     const userId = event.dataTransfer.getData("text/plain");
-    structureOrganigramme[userId] = parentId;
+    structureOrganigramme[userId] = null; // Le chef n'a pas de parent
     console.log("Structure actuelle :", structureOrganigramme);
 }
 
-function dropSubordonne(event) {
+function dropSurMembre(event, parentId) {
     event.preventDefault();
     const userId = event.dataTransfer.getData("text/plain");
-    const parentId = event.target.dataset.parentId;
-    structureOrganigramme[userId] = parentId;
-    console.log("Structure actuelle :", structureOrganigramme);
+    if (userId !== parentId) { // Empêcher de se déposer sur soi-même
+        structureOrganigramme[userId] = parentId;
+        console.log("Structure actuelle :", structureOrganigramme);
+    }
 }
 
 function afficherOrganigrammeFinal() {
@@ -83,7 +77,7 @@ function creerStructureHTMLOrgChart(structure, membres) {
     const chef = membres.find(membre => structure[membre.userId] === null);
 
     if (chef) {
-        html += `<li>${genererNoeudHTML(chef)}</li>`;
+        html += `<li>${genererNoeudHTML(chef)}`;
         const subordonnesNiveau1 = membres.filter(membre => structure[membre.userId] === chef.userId);
         if (subordonnesNiveau1.length > 0) {
             html += '<ul>';
@@ -102,6 +96,7 @@ function creerStructureHTMLOrgChart(structure, membres) {
             });
             html += '</ul>';
         }
+        html += '</li>';
     }
     html += '</ul>';
     return html;
