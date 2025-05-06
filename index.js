@@ -15,16 +15,8 @@ function initialiserMembresDraggables(membres) {
     zoneDepot.innerHTML = "";
 
     const explication = document.createElement("p");
-    explication.textContent = "Faites glisser les membres sur la zone 'Déposer le chef de groupe ici' pour définir le sommet de l'organigramme. Ensuite, faites glisser les autres membres sur leur supérieur hiérarchique pour construire la structure.";
+    explication.textContent = "Faites glisser les membres sur leur supérieur hiérarchique pour construire l'organigramme. Mathieu BAC est le chef par défaut.";
     zoneDepot.appendChild(explication);
-
-    const chefDiv = document.createElement("div");
-    chefDiv.id = "zoneChefGroupe";
-    chefDiv.className = "zone-depot";
-    chefDiv.textContent = "Déposer le chef de groupe ici";
-    chefDiv.addEventListener("dragover", allowDrop);
-    chefDiv.addEventListener("drop", (event) => dropSurZoneChef(event));
-    zoneDepot.appendChild(chefDiv);
 
     membres.forEach(membre => {
         const membreDiv = document.createElement("div");
@@ -40,17 +32,19 @@ function initialiserMembresDraggables(membres) {
         if (membre.displayName === "BAC Mathieu") {
             structureOrganigramme[membre.userId] = null; // Mathieu BAC est le chef par défaut
             membreDiv.draggable = false; // Empêcher de le déplacer
-            membreDiv.classList.add("chef-indraguable"); // Ajout d'une classe pour le style visuel
+            membreDiv.classList.add("chef-indraguable"); // Classe pour le style visuel
             membreDiv.removeEventListener("dragstart", drag);
             membreDiv.removeEventListener("dragover", allowDrop);
             membreDiv.removeEventListener("drop", (event) => dropSurMembre(event, membre.userId));
         }
     });
 
+    const afficherBtnContainer = document.getElementById("afficherOrganigrammeContainer");
+    afficherBtnContainer.innerHTML = ""; // Nettoyer si nécessaire
     const afficherBtn = document.createElement("button");
     afficherBtn.textContent = "Afficher l'Organigramme";
     afficherBtn.addEventListener("click", afficherOrganigrammeFinal);
-    zoneDepot.appendChild(afficherBtn);
+    afficherBtnContainer.appendChild(afficherBtn);
 }
 
 function drag(event) {
@@ -62,10 +56,11 @@ function allowDrop(event) {
 }
 
 function dropSurZoneChef(event) {
+    // Cette fonction n'est plus nécessaire car le chef est par défaut
     event.preventDefault();
     const userId = event.dataTransfer.getData("text/plain");
-    structureOrganigramme[userId] = null; // Définir comme chef
-    console.log("Structure actuelle :", structureOrganigramme);
+    structureOrganigramme[userId] = null; // Définir comme chef (pourrait être réactivé si besoin)
+    console.log("Structure actuelle (drop sur ancienne zone chef) :", structureOrganigramme);
 }
 
 function dropSurMembre(event, parentId) {
