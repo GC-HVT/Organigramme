@@ -14,6 +14,10 @@ function initialiserMembresDraggables(membres) {
     const zoneDepot = document.getElementById("zoneDepotOrganigramme");
     zoneDepot.innerHTML = "";
 
+    const explication = document.createElement("p");
+    explication.textContent = "Faites glisser les membres sur la zone 'Déposer le chef de groupe ici' pour définir le sommet de l'organigramme. Ensuite, faites glisser les autres membres sur leur supérieur hiérarchique pour construire la structure.";
+    zoneDepot.appendChild(explication);
+
     const chefDiv = document.createElement("div");
     chefDiv.id = "zoneChefGroupe";
     chefDiv.className = "zone-depot";
@@ -34,9 +38,10 @@ function initialiserMembresDraggables(membres) {
         zoneDepot.appendChild(membreDiv);
 
         if (membre.displayName === "BAC Mathieu") {
-            structureOrganigramme[membre.userId] = null; // Mathieu BAC est le chef
+            structureOrganigramme[membre.userId] = null; // Mathieu BAC est le chef par défaut
             membreDiv.draggable = false; // Empêcher de le déplacer
-            membreDiv.removeEventListener("dragstart", drag); // Supprimer l'écouteur dragstart
+            membreDiv.classList.add("chef-indraguable"); // Ajout d'une classe pour le style visuel
+            membreDiv.removeEventListener("dragstart", drag);
             membreDiv.removeEventListener("dragover", allowDrop);
             membreDiv.removeEventListener("drop", (event) => dropSurMembre(event, membre.userId));
         }
@@ -59,7 +64,7 @@ function allowDrop(event) {
 function dropSurZoneChef(event) {
     event.preventDefault();
     const userId = event.dataTransfer.getData("text/plain");
-    structureOrganigramme[userId] = null; // Le chef n'a pas de parent
+    structureOrganigramme[userId] = null; // Définir comme chef
     console.log("Structure actuelle :", structureOrganigramme);
 }
 
