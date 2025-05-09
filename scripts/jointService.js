@@ -31,7 +31,6 @@ const respEtudes = createBloc({ name: '', poste: 'Resp. Études' }, 200, 300);
 const respProd = createBloc({ name: '', poste: 'Resp. Production' }, 400, 300);
 const respMes = createBloc({ name: '', poste: 'Resp. Mise en service' }, 600, 300);
 
-// Liens hiérarchiques
 graph.addCells([
 chef, manager, assistante,
 respEtudes, respProd, respMes,
