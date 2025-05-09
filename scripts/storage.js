@@ -3,13 +3,11 @@ document.getElementById('exportBtn').addEventListener('click', () => {
 const json = JSON.stringify(graph.toJSON(), null, 2);
 const blob = new Blob([json], { type: 'application/json' });
 const url = URL.createObjectURL(blob);
-
 const a = document.createElement('a');
 a.href = url;
 a.download = 'organigramme.json';
 a.click();
 URL.revokeObjectURL(url);
-
 });
 
 document.getElementById('importBtn').addEventListener('change', (e) => {
@@ -23,6 +21,20 @@ reader.onload = () => {
 };
 reader.readAsText(file);
 
+});
+
+document.getElementById('exportSvgBtn').addEventListener('click', () => {
+const paper = graph._paper;
+if (paper && paper.svg) {
+const svg = paper.svg.cloneNode(true);
+const svgBlob = new Blob([svg.outerHTML], { type: 'image/svg+xml' });
+const url = URL.createObjectURL(svgBlob);
+const a = document.createElement('a');
+a.href = url;
+a.download = 'organigramme.svg';
+a.click();
+URL.revokeObjectURL(url);
+}
 });
 }
 
