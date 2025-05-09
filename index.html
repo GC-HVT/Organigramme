@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blocs avec sélection et gestion dynamique</title>
+    <title>Blocs avec connecteurs verticaux</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
@@ -23,6 +23,9 @@
                 <p class="tel">Téléphone: <span class="tel-value">+123456789</span></p>
             </div>
         </div>
+
+        <!-- Connecteur entre la ligne 1 et la ligne 2 -->
+        <div class="connector vertical-connector"></div>
 
         <!-- Deuxième ligne -->
         <div class="row second-row">
@@ -54,6 +57,14 @@
             </div>
         </div>
 
+        <!-- Connecteur entre le premier bloc de la ligne 2 et le deuxième -->
+        <div class="connector horizontal-connector"></div>
+
+        <!-- Connecteurs entre les blocs de la ligne 2 et la ligne 3 -->
+        <div class="connector vertical-connector"></div>
+        <div class="connector vertical-connector"></div>
+        <div class="connector vertical-connector"></div>
+
         <!-- Troisième ligne -->
         <div class="row third-row">
             <div class="block">
@@ -70,9 +81,44 @@
                 <button class="add-block-btn">+</button>
                 <button class="remove-block-btn">x</button>
             </div>
+            <div class="block">
+                <select class="name-selector">
+                    <option value="john">John Doe</option>
+                    <option value="alice">Alice Dupont</option>
+                    <option value="marc">Marc Leclerc</option>
+                </select>
+                <p class="name">Nom: <span class="name-value">Alice Dupont</span></p>
+                <p class="poste">Poste: <span class="poste-value">Chef de projet</span></p>
+                <p class="description">Description: <span class="description-value">Gestion de projet et coordination</span></p>
+                <p class="email">Email: <span class="email-value">alice.dupont@example.com</span></p>
+                <p class="tel">Téléphone: <span class="tel-value">+987654321</span></p>
+                <button class="add-block-btn">+</button>
+                <button class="remove-block-btn">x</button>
+            </div>
         </div>
-    </div>
 
+        <!-- Connecteurs entre les blocs de la ligne 3 et la ligne 4 -->
+        <div class="connector vertical-connector"></div>
+        <div class="connector vertical-connector"></div>
+        <div class="connector vertical-connector"></div>
+
+        <!-- Ligne 4 (ajoutez plus de blocs selon vos besoins) -->
+        <div class="row fourth-row">
+            <div class="block">
+                <select class="name-selector">
+                    <option value="john">John Doe</option>
+                    <option value="alice">Alice Dupont</option>
+                    <option value="marc">Marc Leclerc</option>
+                </select>
+                <p class="name">Nom: <span class="name-value">John Doe</span></p>
+                <p class="poste">Poste: <span class="poste-value">Développeur</span></p>
+                <p class="description">Description: <span class="description-value">Développement de fonctionnalités</span></p>
+                <p class="email">Email: <span class="email-value">john.doe@example.com</span></p>
+                <p class="tel">Téléphone: <span class="tel-value">+123456789</span></p>
+            </div>
+        </div>
+
+    </div>
     <script src="scripts/index.js"></script>
 </body>
 </html>
