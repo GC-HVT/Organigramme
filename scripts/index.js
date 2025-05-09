@@ -58,4 +58,42 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('member-name').value = ''; // Réinitialiser le champ de texte
     }
   });
+
+  // Exemple d'ajout de blocs et de liens au démarrage
+  const block1 = new joint.shapes.standard.Rectangle();
+  block1.position(100, 100);
+  block1.resize(150, 60);
+  block1.attr({
+    body: {
+      fill: '#3498db',
+      stroke: '#2980b9',
+      strokeWidth: 2
+    },
+    label: {
+      text: 'Bloc 1',
+      fill: 'white'
+    }
+  });
+  block1.addTo(graph);
+
+  const block2 = new joint.shapes.standard.Rectangle();
+  block2.position(300, 100);
+  block2.resize(150, 60);
+  block2.attr({
+    body: {
+      fill: '#e74c3c',
+      stroke: '#c0392b',
+      strokeWidth: 2
+    },
+    label: {
+      text: 'Bloc 2',
+      fill: 'white'
+    }
+  });
+  block2.addTo(graph);
+
+  const link = new joint.shapes.standard.Link();
+  link.source(block1);
+  link.target(block2);
+  link.addTo(graph);
 });
