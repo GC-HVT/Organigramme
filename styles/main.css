@@ -10,17 +10,19 @@ body {
 
 .container {
     text-align: center;
+    width: 80%;
+    max-width: 1200px;
 }
 
 .row {
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .row.second-row {
-    justify-content: space-between; /* Espacement entre les éléments */
-    width: 100%; /* Prendre toute la largeur disponible */
+    justify-content: space-between;
+    width: 100%;
 }
 
 .block {
@@ -29,14 +31,18 @@ body {
     padding: 20px;
     margin: 5px;
     border-radius: 5px;
-    width: 50px;
-    text-align: center;
+    width: 200px;
+    text-align: left; /* Align text to the left inside the block */
 }
 
-.second-row .block:first-child {
-    margin-left: auto; /* Centrer le premier bloc */
+.block p {
+    margin: 5px 0;
 }
 
-.second-row .block:nth-child(2) {
-    margin-right: 0; /* Décaler le deuxième bloc à droite */
+.block .name {
+    font-weight: bold;
+}
+
+.block .poste {
+    font-style: italic;
 }
