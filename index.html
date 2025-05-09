@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Organigramme</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.6.5/joint.min.js"></script>
+</head>
+<body>
+  <div id="sidebar">
+    <h2 id="organigrammeTitre">Organigramme</h2>
+    <button id="generateBtn">Générer organigramme</button>
+    <button id="exportBtn">Exporter JSON</button>
+    <input type="file" id="importBtn" accept=".json" />
+    <button id="exportSvgBtn">Exporter SVG</button>
+  </div>
+
+  <div id="myDiagramDiv"></div>
+
+  <div id="blocEditor" class="modal">
+    <form>
+      <label>Nom <input type="text" id="editName"></label>
+      <label>Poste <input type="text" id="editPoste"></label>
+      <label>Description <input type="text" id="editDesc"></label>
+      <label>Téléphone <input type="text" id="editTel"></label>
+      <label>Email <input type="email" id="editMail"></label>
+      <div class="actions">
+        <button type="submit">Valider</button>
+        <button type="button" class="cancel-btn">Annuler</button>
+        <button type="button" id="addChildBtn">Ajouter bloc enfant</button>
+        <button type="button" id="deleteBlocBtn">Supprimer ce bloc</button>
+      </div>
+    </form>
+  </div>
+
+  <script type="module" src="scripts/index.js"></script>
+</body>
+</html>
