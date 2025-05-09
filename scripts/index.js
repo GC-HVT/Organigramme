@@ -1,47 +1,16 @@
-// Entrée principale : initialisation et événements DOM
+import { chargerGroupes, chargerMembres } from "../modules/moduleMembres.js";
+import { initialiserOrganigramme, ajouterBloc, ajouterLien, supprimerLien, exporterPDF, injecterMembresSidebar } from "../modules/moduleOrganigramme.js";
 
-import { chargerGroupes, chargerMembres } from '../modules/modulesMembres.js';
-import { initGraph, generateStructure } from './jointService.js';
-import { setupBlocInteraction } from './ui.js';
-import { setupEditor } from './modaleEditor.js';
-import { setupStorage } from './storage.js';
+document.addEventListener("DOMContentLoaded", () => {
+    chargerGroupes();
+    initialiserOrganigramme();
 
-let graph, paper;
-let currentGroup = 'Groupe A';
+    document.getElementById("loadMembersBtn").addEventListener("click", () => {
+        chargerMembres(injecterMembresSidebar);
+    });
 
-document.addEventListener('DOMContentLoaded', () => {
-  ({ graph, paper } = initGraph('myDiagramDiv'));
-  window.graph = graph;
-
-  const groupSelector = document.getElementById('groupSelector');
-  currentGroup = groupSelector.value;
-
-  loadGroupData(currentGroup);
-
-  document.getElementById('generateBtn').addEventListener('click', () => {
-    generateStructure(graph);
-    saveGroupData(currentGroup);
-  });
-
-  groupSelector.addEventListener('change', () => {
-    currentGroup = groupSelector.value;
-    loadGroupData(currentGroup);
-  });
-
-  setupEditor();
-  setupStorage(graph, () => saveGroupData(currentGroup));
+    document.getElementById("addBloc").addEventListener("click", ajouterBloc);
+    document.getElementById("addLien").addEventListener("click", ajouterLien);
+    document.getElementById("supprimerLien").addEventListener("click", supprimerLien);
+    document.getElementById("exporterPDF").addEventListener("click", exporterPDF);
 });
-
-function saveGroupData(group) {
-  const json = JSON.stringify(graph.toJSON());
-  localStorage.setItem(`organigramme_${group}`, json);
-}
-
-function loadGroupData(group) {
-  const data = localStorage.getItem(`organigramme_${group}`);
-  if (data) {
-    graph.fromJSON(JSON.parse(data));
-  } else {
-    graph.clear();
-  }
-}
