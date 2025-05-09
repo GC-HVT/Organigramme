@@ -67,3 +67,18 @@ body {
 .block .tel-value {
     font-weight: normal;
 }
+
+.add-block-btn, .remove-block-btn {
+    padding: 10px 20px;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.add-block-btn:hover, .remove-block-btn:hover {
+    background-color: #005f73;
+}
