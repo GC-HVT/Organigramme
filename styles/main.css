@@ -29,11 +29,15 @@ body {
 .block {
     background-color: #4CAF50;
     color: white;
-    padding: 20px;
+    padding: 10px;
     margin: 5px;
     border-radius: 5px;
     width: 200px;
     text-align: left; /* Aligner le texte à gauche à l'intérieur du bloc */
+    font-size: 14px; /* Taille du texte réduite */
+    overflow: hidden; /* Empêcher le débordement de texte */
+    text-overflow: ellipsis; /* Ajouter des "..." si le texte est trop long */
+    white-space: nowrap; /* Empêche le texte de se diviser sur plusieurs lignes */
 }
 
 .block p {
