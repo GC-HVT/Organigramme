@@ -184,5 +184,5 @@ positions[directeur] = { x: xBase, y: yBase };
 
 parcourirOrganisation(1, organisation[directeur].subordonnes, elementDirecteur, xBase, yBase);
 
-graph.add(elements);
+// graph.add(elements);
 graph.add(liens);
