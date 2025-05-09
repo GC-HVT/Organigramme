@@ -2,13 +2,19 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Organigramme</title>
+  <title>Organigramme par Groupe</title>
   <link rel="stylesheet" href="styles/main.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.6.5/joint.min.js"></script>
 </head>
 <body>
   <div id="sidebar">
-    <h2 id="organigrammeTitre">Organigramme</h2>
+    <h2>Organigramme</h2>
+    <label for="groupSelector">Groupe :</label>
+    <select id="groupSelector">
+      <option value="Groupe A">Groupe A</option>
+      <option value="Groupe B">Groupe B</option>
+      <option value="Groupe C">Groupe C</option>
+    </select>
     <button id="generateBtn">Générer organigramme</button>
     <button id="exportBtn">Exporter JSON</button>
     <input type="file" id="importBtn" accept=".json" />
