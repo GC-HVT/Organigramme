@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blocs avec sélection des membres</title>
+    <title>Blocs avec sélection et gestion dynamique</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
     <div class="container">
+        <!-- Première ligne -->
         <div class="row">
             <div class="block">
                 <select class="name-selector">
@@ -22,8 +23,55 @@
                 <p class="tel">Téléphone: <span class="tel-value">+123456789</span></p>
             </div>
         </div>
-        <!-- Ajoutez les autres lignes et blocs ici de la même manière -->
+
+        <!-- Deuxième ligne -->
+        <div class="row second-row">
+            <div class="block">
+                <select class="name-selector">
+                    <option value="john">John Doe</option>
+                    <option value="alice">Alice Dupont</option>
+                    <option value="marc">Marc Leclerc</option>
+                </select>
+                <p class="name">Nom: <span class="name-value">John Doe</span></p>
+                <p class="poste">Poste: <span class="poste-value">Développeur</span></p>
+                <p class="description">Description: <span class="description-value">Développement de fonctionnalités</span></p>
+                <p class="email">Email: <span class="email-value">john.doe@example.com</span></p>
+                <p class="tel">Téléphone: <span class="tel-value">+123456789</span></p>
+            </div>
+            <div class="block">
+                <select class="name-selector">
+                    <option value="john">John Doe</option>
+                    <option value="alice">Alice Dupont</option>
+                    <option value="marc">Marc Leclerc</option>
+                </select>
+                <p class="name">Nom: <span class="name-value">Alice Dupont</span></p>
+                <p class="poste">Poste: <span class="poste-value">Chef de projet</span></p>
+                <p class="description">Description: <span class="description-value">Gestion de projet et coordination</span></p>
+                <p class="email">Email: <span class="email-value">alice.dupont@example.com</span></p>
+                <p class="tel">Téléphone: <span class="tel-value">+987654321</span></p>
+            </div>
+        </div>
+
+        <!-- Troisième ligne et suivante -->
+        <div class="row third-row">
+            <div class="block">
+                <select class="name-selector">
+                    <option value="john">John Doe</option>
+                    <option value="alice">Alice Dupont</option>
+                    <option value="marc">Marc Leclerc</option>
+                </select>
+                <p class="name">Nom: <span class="name-value">John Doe</span></p>
+                <p class="poste">Poste: <span class="poste-value">Développeur</span></p>
+                <p class="description">Description: <span class="description-value">Développement de fonctionnalités</span></p>
+                <p class="email">Email: <span class="email-value">john.doe@example.com</span></p>
+                <p class="tel">Téléphone: <span class="tel-value">+123456789</span></p>
+            </div>
+            <!-- Ajout d'un bouton pour ajouter des blocs -->
+            <button id="add-block" class="add-block-btn">Ajouter un bloc</button>
+            <button id="remove-block" class="remove-block-btn">Supprimer ce bloc</button>
+        </div>
     </div>
+
     <script src="scripts/index.js"></script>
 </body>
 </html>
