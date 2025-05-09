@@ -9,8 +9,13 @@ const paper = new joint.dia.Paper({
     height: 800,
     gridSize: 10,
     drawGrid: true,
-    linkPinning: false
+    linkPinning: false,
+    interactive: { linkMove: false, linkReconnect: false }
 });
+
+// Variables de gestion de l'UI
+let selectedBloc = null; // Bloc actuellement sélectionné
+let currentLink = null; // Lien en cours de création
 
 // Fonction pour créer un bloc (nœud)
 function ajouterBloc(x, y, name) {
@@ -29,6 +34,11 @@ function ajouterBloc(x, y, name) {
             fill: '#000000'
         }
     });
+
+    bloc.on('pointerdown', () => {
+        selectedBloc = bloc; // Sélectionner le bloc au clic
+    });
+
     bloc.addTo(graph);
 }
 
@@ -67,21 +77,26 @@ function exporterPDF() {
     a.click();
 }
 
-// Événements des boutons
+// Ajouter un bloc avec un bouton
 document.getElementById('addBloc').addEventListener('click', () => {
     ajouterBloc(100, 100, 'Nouveau bloc');
 });
 
+// Ajouter un lien entre deux blocs sélectionnés
 document.getElementById('addLien').addEventListener('click', () => {
-    const selected = paper.selection.collection;
-    if (selected.length === 2) {
-        ajouterLien(selected.at(0), selected.at(1));
+    if (selectedBloc && currentLink) {
+        ajouterLien(selectedBloc, currentLink);
+        selectedBloc = null;
+        currentLink = null;
     } else {
-        alert("Sélectionnez deux blocs pour ajouter un lien.");
+        alert("Sélectionnez d'abord deux blocs.");
     }
 });
 
+// Supprimer un lien
 document.getElementById('supprimerLien').addEventListener('click', supprimerLien);
+
+// Exporter l'organigramme en SVG
 document.getElementById('exporterPDF').addEventListener('click', exporterPDF);
 
 // Charger les groupes au démarrage
@@ -116,7 +131,4 @@ function afficherMembres(membres) {
             event.dataTransfer.setData("application/json", JSON.stringify(memberData));
         });
 
-        membersList.appendChild(div);
-    });
-}
-
+        membersList.appendChi
