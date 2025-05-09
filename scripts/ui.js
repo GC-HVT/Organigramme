@@ -23,12 +23,17 @@ fontWeight: 'bold'
 element.prop('customData', data);
 
 element.on('element:pointerdblclick', () => {
-const nouveauNom = prompt('Nom ?', data.name);
-const nouveauPoste = prompt('Poste ?', data.poste);
-data.name = nouveauNom;
-data.poste = nouveauPoste;
-element.attr('label/text', nouveauPoste);
-element.prop('customData', data);
+const editor = document.getElementById('blocEditor');
+editor.classList.add('visible');
+
+editor.querySelector('#editName').value = data.name || '';
+editor.querySelector('#editPoste').value = data.poste || '';
+editor.querySelector('#editDesc').value = data.desc || '';
+editor.querySelector('#editTel').value = data.tel || '';
+editor.querySelector('#editMail').value = data.mail || '';
+
+editor.dataset.targetId = element.id;
+
 });
 
 return element;
