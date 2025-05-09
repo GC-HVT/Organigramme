@@ -1,134 +1,80 @@
-import { chargerGroupes, chargerMembres } from '../modules/modulesMembres.js'; // Importation des fonctions du module
+document.addEventListener('DOMContentLoaded', function () {
+  // Création du graph
+  const graph = new joint.dia.Graph();
 
-// Initialisation de JointJS
-const graph = new joint.dia.Graph();
-const paper = new joint.dia.Paper({
-    el: document.getElementById('organigramme'),
+  // Création de la paper (le canvas où l'organigramme sera affiché)
+  const paper = new joint.dia.Paper({
+    el: document.getElementById('graph-container'),
     model: graph,
-    width: 1200,
-    height: 800,
+    width: 800,
+    height: 600,
     gridSize: 10,
-    drawGrid: true,
-    linkPinning: false,
-    interactive: { linkMove: false, linkReconnect: false }
-});
+    drawGrid: true
+  });
 
-// Variables de gestion de l'UI
-let selectedBloc = null; // Bloc actuellement sélectionné
-let currentLink = null; // Lien en cours de création
+  // Création d'un élément de base (un membre avec un rectangle)
+  const member = new joint.shapes.standard.Rectangle();
+  member.position(100, 100);
+  member.resize(150, 60);
+  member.attr({
+    body: {
+      fill: '#6c8e23',
+      stroke: '#4b5320',
+      strokeWidth: 2
+    },
+    label: {
+      text: 'Membre 1',
+      fill: 'white'
+    }
+  });
+  member.addTo(graph);
 
-// Fonction pour créer un bloc (nœud)
-function ajouterBloc(x, y, name) {
-    const bloc = new joint.shapes.standard.Rectangle();
-    bloc.position(x, y);
-    bloc.resize(160, 60);
-    bloc.attr({
+  // Ajouter un autre membre pour l'exemple
+  const member2 = new joint.shapes.standard.Rectangle();
+  member2.position(300, 100);
+  member2.resize(150, 60);
+  member2.attr({
+    body: {
+      fill: '#6c8e23',
+      stroke: '#4b5320',
+      strokeWidth: 2
+    },
+    label: {
+      text: 'Membre 2',
+      fill: 'white'
+    }
+  });
+  member2.addTo(graph);
+
+  // Créer un lien entre les deux membres (représentation de la hiérarchie)
+  const link = new joint.shapes.standard.Link();
+  link.source(member);
+  link.target(member2);
+  link.addTo(graph);
+
+  // Gérer l'ajout de membres via l'interface
+  const addMemberButton = document.getElementById('add-member');
+  addMemberButton.addEventListener('click', () => {
+    const memberName = document.getElementById('member-name').value;
+    if (memberName) {
+      const newMember = new joint.shapes.standard.Rectangle();
+      newMember.position(100, 100);
+      newMember.resize(150, 60);
+      newMember.attr({
         body: {
-            fill: '#FFCC00',
-            stroke: '#000000',
-            strokeWidth: 1
+          fill: '#6c8e23',
+          stroke: '#4b5320',
+          strokeWidth: 2
         },
         label: {
-            text: name,
-            fontSize: 12,
-            fill: '#000000'
+          text: memberName,
+          fill: 'white'
         }
-    });
+      });
+      newMember.addTo(graph);
 
-    bloc.on('pointerdown', () => {
-        selectedBloc = bloc; // Sélectionner le bloc au clic
-    });
-
-    bloc.addTo(graph);
-}
-
-// Fonction pour ajouter un lien entre deux blocs
-function ajouterLien(source, target) {
-    const lien = new joint.shapes.standard.Link();
-    lien.source(source);
-    lien.target(target);
-    lien.attr({
-        line: {
-            stroke: '#000000',
-            strokeWidth: 2
-        }
-    });
-    lien.addTo(graph);
-}
-
-// Fonction pour supprimer un lien
-function supprimerLien() {
-    const selection = paper.selection.collection;
-    selection.forEach(element => {
-        if (element.isLink()) {
-            element.remove();
-        }
-    });
-}
-
-// Fonction pour exporter l'organigramme en PDF (en SVG pour avoir un export vectoriel)
-function exporterPDF() {
-    const svgContent = paper.svg;
-    const blob = new Blob([svgContent.outerHTML], { type: 'image/svg+xml' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'organigramme.svg';
-    a.click();
-}
-
-// Ajouter un bloc avec un bouton
-document.getElementById('addBloc').addEventListener('click', () => {
-    ajouterBloc(100, 100, 'Nouveau bloc');
-});
-
-// Ajouter un lien entre deux blocs sélectionnés
-document.getElementById('addLien').addEventListener('click', () => {
-    if (selectedBloc && currentLink) {
-        ajouterLien(selectedBloc, currentLink);
-        selectedBloc = null;
-        currentLink = null;
-    } else {
-        alert("Sélectionnez d'abord deux blocs.");
+      // Réinitialiser l'input
+      document.getElementById('member-name').value = '';
     }
+  });
 });
-
-// Supprimer un lien
-document.getElementById('supprimerLien').addEventListener('click', supprimerLien);
-
-// Exporter l'organigramme en SVG
-document.getElementById('exporterPDF').addEventListener('click', exporterPDF);
-
-// Charger les groupes au démarrage
-chargerGroupes();
-
-// Charger les membres lorsque le bouton est cliqué
-document.getElementById('loadMembersBtn').addEventListener('click', () => {
-    chargerMembres((membres) => {
-        afficherMembres(membres);
-    });
-});
-
-// Afficher les membres dans la sidebar
-function afficherMembres(membres) {
-    const membersList = document.getElementById("membersList");
-    membersList.innerHTML = "";
-    membres.forEach(member => {
-        const div = document.createElement("div");
-        div.className = "member-card";
-        div.draggable = true;
-        div.textContent = member.displayName;
-        div.dataset.id = member.id;
-
-        div.addEventListener("dragstart", (event) => {
-            const memberData = {
-                key: member.id,
-                name: member.displayName || "",
-                poste: member.jobTitle || "",
-                tel: member.telephoneNumber || "",
-                mail: member.mail || ""
-            };
-            event.dataTransfer.setData("application/json", JSON.stringify(memberData));
-        });
-
-        membersList.appendChi
