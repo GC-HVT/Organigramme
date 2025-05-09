@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Fonction pour ajouter un bloc
+    // Fonction pour ajouter un bloc à une ligne donnée
     function addBlock(row) {
         const newBlock = document.createElement('div');
         newBlock.classList.add('block');
@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
             <p class="description">Description: <span class="description-value">Développement de fonctionnalités</span></p>
             <p class="email">Email: <span class="email-value">john.doe@example.com</span></p>
             <p class="tel">Téléphone: <span class="tel-value">+123456789</span></p>
+            <button class="add-block-btn">+</button>
+            <button class="remove-block-btn">x</button>
         `;
         
         row.appendChild(newBlock);
@@ -26,19 +28,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Gérer l'ajout de blocs dans la troisième ligne
-    const addButton = document.getElementById('add-block');
-    const removeButton = document.getElementById('remove-block');
-    const thirdRow = document.querySelector('.third-row');
-
-    addButton.addEventListener('click', () => {
-        addBlock(thirdRow);
+    const addButtons = document.querySelectorAll('.add-block-btn');
+    addButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const row = this.closest('.row');
+            addBlock(row);
+        });
     });
 
-    removeButton.addEventListener('click', () => {
-        const blocks = thirdRow.querySelectorAll('.block');
-        if (blocks.length > 1) {
-            removeBlock(blocks[blocks.length - 1]);
-        }
+    // Gérer la suppression de blocs
+    const removeButtons = document.querySelectorAll('.remove-block-btn');
+    removeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const block = this.closest('.block');
+            removeBlock(block);
+        });
     });
 
     // Gérer la modification dynamique des informations dans chaque bloc
