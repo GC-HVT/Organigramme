@@ -19,7 +19,8 @@ body {
 }
 
 .row.second-row {
-    justify-content: flex-start; /* Aligner les blocs à gauche */
+    justify-content: space-between; /* Espacement entre les éléments */
+    width: 100%; /* Prendre toute la largeur disponible */
 }
 
 .block {
@@ -32,6 +33,10 @@ body {
     text-align: center;
 }
 
+.second-row .block:first-child {
+    margin-left: auto; /* Centrer le premier bloc */
+}
+
 .second-row .block:nth-child(2) {
-    margin-left: auto; /* Décaler le deuxième bloc vers la droite */
+    margin-right: 0; /* Décaler le deuxième bloc à droite */
 }
