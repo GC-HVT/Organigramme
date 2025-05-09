@@ -18,6 +18,10 @@ body {
     margin-bottom: 10px;
 }
 
+.row.second-row {
+    justify-content: flex-start; /* Aligner les blocs à gauche */
+}
+
 .block {
     background-color: #4CAF50;
     color: white;
@@ -26,4 +30,8 @@ body {
     border-radius: 5px;
     width: 50px;
     text-align: center;
+}
+
+.second-row .block:nth-child(2) {
+    margin-left: auto; /* Décaler le deuxième bloc vers la droite */
 }
