@@ -17,7 +17,7 @@ body {
 .row {
     display: flex;
     justify-content: center;
-    align-items: center; /* Centrer verticalement les blocs dans chaque ligne */
+    align-items: center;
     margin-bottom: 20px;
 }
 
@@ -33,11 +33,19 @@ body {
     margin: 5px;
     border-radius: 5px;
     width: 200px;
-    text-align: left; /* Aligner le texte à gauche à l'intérieur du bloc */
-    font-size: 14px; /* Taille du texte réduite */
-    overflow: hidden; /* Empêcher le débordement de texte */
-    text-overflow: ellipsis; /* Ajouter des "..." si le texte est trop long */
-    white-space: nowrap; /* Empêche le texte de se diviser sur plusieurs lignes */
+    text-align: left;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.block select {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 5px;
 }
 
 .block p {
@@ -50,4 +58,12 @@ body {
 
 .block .poste {
     font-style: italic;
+}
+
+.block .name-value,
+.block .poste-value,
+.block .description-value,
+.block .email-value,
+.block .tel-value {
+    font-weight: normal;
 }
