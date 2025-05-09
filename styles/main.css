@@ -17,6 +17,7 @@ body {
 .row {
     display: flex;
     justify-content: center;
+    align-items: center; /* Centrer verticalement les blocs dans chaque ligne */
     margin-bottom: 20px;
 }
 
@@ -32,7 +33,7 @@ body {
     margin: 5px;
     border-radius: 5px;
     width: 200px;
-    text-align: left; /* Align text to the left inside the block */
+    text-align: left; /* Aligner le texte à gauche à l'intérieur du bloc */
 }
 
 .block p {
