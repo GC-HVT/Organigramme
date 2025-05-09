@@ -1,5 +1,6 @@
 // Entrée principale : initialisation et événements DOM
 
+import { chargerGroupes, chargerMembres } from '../modules/modulesMembres.js';
 import { initGraph, generateStructure } from './jointService.js';
 import { setupBlocInteraction } from './ui.js';
 import { setupEditor } from './modaleEditor.js';
